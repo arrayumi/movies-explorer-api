@@ -1,6 +1,4 @@
 const { celebrate, Joi } = require('celebrate');
-const mongoose = require('mongoose');
-const NotFoundError = require('../errors/not-found-err');
 
 const regexLink = /(http(s)?:\/\/(www\.)?)[0-9a-zA-Z\-._~:/?#[\]@!$&'()*+,;=]+#?/;
 
@@ -24,11 +22,7 @@ const validateLogin = celebrate({
 
 const validateMovieId = celebrate({
   params: Joi.object().keys({
-    movieId: Joi.string().custom((value) => {
-      const isValid = mongoose.isValidObjectId(value);
-      if (isValid) return value;
-      throw new NotFoundError('Фильм с данным id не найден');
-    }),
+    _id: Joi.number().required(),
   }),
 });
 

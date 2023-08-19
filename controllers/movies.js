@@ -15,34 +15,7 @@ const getSavedMovies = (req, res, next) => {
 };
 
 const createMovie = (req, res, next) => {
-  const {
-    country,
-    director,
-    duration,
-    year,
-    description,
-    image,
-    trailerLink,
-    nameRU,
-    nameEN,
-    thumbnail,
-    movieId,
-  } = req.body;
-
-  Movie.create({
-    country,
-    director,
-    duration,
-    year,
-    description,
-    image,
-    trailerLink,
-    nameRU,
-    nameEN,
-    thumbnail,
-    movieId,
-    owner: req.user._id,
-  })
+  Movie.create({ owner: req.user._id, ...req.body })
     .then((movie) => {
       res.status(201).send(movie);
     })
@@ -55,9 +28,9 @@ const createMovie = (req, res, next) => {
 };
 
 const deleteSavedMovie = (req, res, next) => {
-  const { movieId } = req.params;
+  const movieId = req.params;
 
-  Movie.findByIdAndRemove(movieId)
+  Movie.findOneAndDelete({ movieId })
     .orFail(new NotFoundError('Некорректный id фильма'))
     .then((movie) => {
       if (movie.owner.toString() !== req.user._id) throw new ForbiddenError('Нельзя удалить чужой фильм');

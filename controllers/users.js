@@ -13,7 +13,7 @@ const UnauthorizedError = require('../errors/unauthorized-err');
 const SALT_ROUNDS = 10;
 
 const getUserInfo = (req, res, next) => {
-  const { userId } = req.params;
+  const userId = req.user._id;
 
   User.findById(userId)
     .orFail(new NotFoundError('Пользователь по данному id не найден'))
@@ -106,7 +106,7 @@ const login = (req, res, next) => {
                 secure: true,
               })
               .status(200)
-              .send(token);
+              .send({ token });
           })
           .catch(next);
       }
@@ -122,7 +122,7 @@ const login = (req, res, next) => {
 
 const logout = (req, res) => {
   res.clearCookie('token');
-  return res.status(200).redirect('/login');
+  return res.status(200).redirect('/signin');
 };
 
 module.exports = {

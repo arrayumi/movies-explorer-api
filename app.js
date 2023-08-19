@@ -38,12 +38,12 @@ app.use(requestLogger);
 
 app.post('/signup', validateCreateUser, createUser);
 app.post('/signin', validateLogin, login);
-app.post('/signout', logout);
 
 app.use(auth);
 
 app.use('/users', usersRouter);
 app.use('/movies', moviesRouter);
+app.post('/signout', logout);
 
 app.use('*', (req, res, next) => {
   next(new NotFoundError('Неверный адрес запроса'));
