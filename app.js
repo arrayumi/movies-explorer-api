@@ -4,24 +4,19 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
+const { errors: celebrateErrors } = require('celebrate');
 
 const app = express();
+const routes = require('./routes');
 
-const { errors: celebrateErrors } = require('celebrate');
 const config = require('./config');
 const limiter = require('./middlewares/limiter');
 
 const { PORT, DB_URL } = config;
 
-const usersRouter = require('./routes/users');
-const moviesRouter = require('./routes/movies');
-const { createUser, login, logout } = require('./controllers/users');
-const auth = require('./middlewares/auth');
 const errors = require('./middlewares/errors');
-const { validateCreateUser, validateLogin } = require('./middlewares/validation');
 const cors = require('./middlewares/cors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const NotFoundError = require('./errors/not-found-err');
 
 mongoose.connect(DB_URL)
   .then(() => {
@@ -36,18 +31,7 @@ app.use(limiter);
 
 app.use(requestLogger);
 
-app.post('/signup', validateCreateUser, createUser);
-app.post('/signin', validateLogin, login);
-
-app.use(auth);
-
-app.use('/users', usersRouter);
-app.use('/movies', moviesRouter);
-app.post('/signout', logout);
-
-app.use('*', (req, res, next) => {
-  next(new NotFoundError('Неверный адрес запроса'));
-});
+app.use('/', routes);
 
 app.use(errorLogger);
 
