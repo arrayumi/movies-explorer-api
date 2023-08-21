@@ -27,9 +27,9 @@ app.use(helmet());
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors);
-app.use(limiter);
 
 app.use(requestLogger);
+app.use(limiter);
 
 app.use('/', routes);
 

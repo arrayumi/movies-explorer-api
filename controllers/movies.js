@@ -7,7 +7,8 @@ const ValidationError = require('../errors/validation-err');
 const ForbiddenError = require('../errors/forbidden-err');
 
 const getSavedMovies = (req, res, next) => {
-  Movie.find({})
+  const owner = req.user._id;
+  Movie.find({ owner })
     .then((movies) => {
       if (movies) res.status(200).send(movies);
     })
