@@ -31,7 +31,7 @@ const createMovie = (req, res, next) => {
 const deleteSavedMovie = (req, res, next) => {
   const movieId = req.params;
 
-  Movie.findOneAndDelete({ movieId })
+  Movie.findOneAndDelete({ _id: movieId })
     .orFail(new NotFoundError('Некорректный id фильма'))
     .then((movie) => {
       if (movie.owner.toString() !== req.user._id) throw new ForbiddenError('Нельзя удалить чужой фильм');
