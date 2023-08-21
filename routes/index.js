@@ -7,6 +7,7 @@ const { createUser, login, logout } = require('../controllers/users');
 const { validateCreateUser, validateLogin } = require('../middlewares/validation');
 
 const NotFoundError = require('../errors/not-found-err');
+const ERROR_MESSAGES = require('../utils/constants');
 
 router.post('/signup', validateCreateUser, createUser);
 router.post('/signin', validateLogin, login);
@@ -18,7 +19,7 @@ router.use('/movies', moviesRouter);
 router.post('/signout', logout);
 
 router.use('*', (req, res, next) => {
-  next(new NotFoundError('Неверный адрес запроса'));
+  next(new NotFoundError(ERROR_MESSAGES.PAGE_NOT_FOUND));
 });
 
 module.exports = router;
