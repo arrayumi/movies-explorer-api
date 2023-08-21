@@ -22,7 +22,7 @@ const createMovie = (req, res, next) => {
     })
     .catch((error) => {
       if (error instanceof mongoose.Error.ValidationError) {
-        throw new ValidationError('Невалидные данные');
+        next(new ValidationError('Невалидные данные'));
       }
       next(error);
     });
@@ -41,7 +41,7 @@ const deleteSavedMovie = (req, res, next) => {
     })
     .catch((error) => {
       if (error instanceof mongoose.Error.CastError) {
-        throw new ValidationError('Некорректные данные');
+        next(new ValidationError('Некорректные данные'));
       }
       next(error);
     });

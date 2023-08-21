@@ -26,7 +26,7 @@ const getUserInfo = (req, res, next) => {
     })
     .catch((error) => {
       if (error instanceof mongoose.Error.CastError) {
-        throw new ValidationError('Некорректные данные');
+        next(new ValidationError('Некорректные данные'));
       }
       next(error);
     });
@@ -50,7 +50,7 @@ const updateUserInfo = (req, res, next) => {
     })
     .catch((error) => {
       if (error instanceof mongoose.Error.ValidationError) {
-        throw new ValidationError('Некорректные данные');
+        next(new ValidationError('Некорректные данные'));
       }
       if (error.code === 11000) {
         next(new ConflictError('Пользователь с таким email уже зарегистрирован'));
@@ -82,7 +82,7 @@ const createUser = (req, res, next) => {
         })
         .catch((error) => {
           if (error instanceof mongoose.Error.ValidationError) {
-            throw new ValidationError('Невалидные данные');
+            next(new ValidationError('Невалидные данные'));
           }
           next(error);
         });
