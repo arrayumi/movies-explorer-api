@@ -111,13 +111,7 @@ const login = (req, res, next) => {
           .catch(next);
       }
     })
-    .catch((error) => {
-      if ((error instanceof mongoose.Error.CastError)
-        || (error instanceof mongoose.Error.ValidationError)) {
-        throw new ValidationError('Некорректные данные');
-      }
-      next(error);
-    });
+    .catch(next);
 };
 
 const logout = (req, res) => {
