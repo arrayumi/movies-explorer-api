@@ -52,6 +52,9 @@ const updateUserInfo = (req, res, next) => {
       if (error instanceof mongoose.Error.ValidationError) {
         throw new ValidationError('Некорректные данные');
       }
+      if (error.code === 11000) {
+        next(new ConflictError('Пользователь с таким email уже зарегистрирован'));
+      }
       next(error);
     });
 };
