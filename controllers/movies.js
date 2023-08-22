@@ -31,7 +31,7 @@ const createMovie = (req, res, next) => {
 };
 
 const deleteSavedMovie = (req, res, next) => {
-  const movieId = req.params;
+  const movieId = req.params._id;
 
   Movie.findById({ _id: movieId })
     .orFail(new NotFoundError(ERROR_MESSAGES.MOVIE_NOT_FOUND))
@@ -39,7 +39,7 @@ const deleteSavedMovie = (req, res, next) => {
       if (movie.owner.toString() !== req.user._id) {
         throw new ForbiddenError(ERROR_MESSAGES.FORBIDDEN);
       }
-      return Movie.findByIdAndRemove({ _id: movie.movieId })
+      return Movie.findByIdAndRemove({ _id: movieId })
         .then((deletedMovie) => res.status(200).send(deletedMovie))
         .catch(next);
     })
