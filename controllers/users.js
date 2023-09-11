@@ -109,6 +109,7 @@ const login = (req, res, next) => {
                 httpOnly: true,
                 sameSite: 'none',
                 secure: true,
+                domen: 'arrayumi.nomoreparties.co',
               })
               .status(200)
               .send({ token });
