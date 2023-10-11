@@ -1,7 +1,38 @@
-## Ссылки на проект
+# Приложение Movies Explorer
+Бэкенд дипломного проекта Веб-факультета Яндекс.Практикум
 
-IP 51.250.85.198
+### Макет:
+ dark-3
+https://www.figma.com/file/6FMWkB94wE7KTkcCgUXtnC/light-1?type=design&node-id=1%3A8436&mode=dev
 
-Frontend https://arrayumi.nomoreparties.co
+### Ссылка на проект: 
+http://arrayumi.nomoreparties.co/
 
-Backend https://api.arrayumi.nomoreparties.co
+### API:
+*Регистрация и авторизация*
+* POST /signup - создаёт пользователя с переданными в теле email, password и name
+* POST /signin - проверяет переданные в теле почту и пароль и возвращает JWT-токен
+
+*Информация о пользователе*
+* GET /users/me - возвращает информацию о пользователе (email и name)
+* PATCH /users/me - обновляет информацию о пользователе (email и name)
+
+*Фильмы*
+* GET /movies - возвращает все сохранённые текущим пользователем фильмы
+* POST /movies - создаёт фильм с переданными в теле country, director, duration, year, description, image, trailer, nameRU, nameEN и thumbnail, movieId
+* DELETE /movies/_id - удаляет сохранённый фильм по id
+
+### Функциональность:
+* Работа с базой данной приложения через роуты
+* Регистрация и аутентификация пользователя
+* Часть роутов защищена авторизацией через JWT-токен
+* Валидация данных
+* Сбор логов сервера в формате JSON
+* Централизованный обработчик ошибок
+* Хранение пароля пользователя в виде хэша с солью
+* Поддержка работы с доступом по https
+* Безопасное хранение на сервере ключа для генерации JWT-токенов
+* Обеспечение безопасности заголовков запросов
+
+### Стек технологий:
+Node.js | express.js | MongoDB | Nginx
