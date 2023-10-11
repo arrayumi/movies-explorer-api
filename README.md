@@ -38,4 +38,4 @@ http://api.arrayumi.nomoreparties.co/
 * Обеспечение безопасности заголовков запросов
 
 ### Стек технологий:
-Node.js | express.js | MongoDB | Nginx
+`Node.js` `express.js` `MongoDB` `Nginx`
