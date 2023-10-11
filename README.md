@@ -8,6 +8,9 @@ https://www.figma.com/file/6FMWkB94wE7KTkcCgUXtnC/light-1?type=design&node-id=1%
 ### Ссылка на проект: 
 http://arrayumi.nomoreparties.co/
 
+### Ссылка на API: 
+http://api.arrayumi.nomoreparties.co/
+
 ### API:
 *Регистрация и авторизация*
 * POST /signup - создаёт пользователя с переданными в теле email, password и name
